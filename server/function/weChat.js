@@ -33,7 +33,7 @@ const thirdLogin = async (ctx, options) => {
                 username: req.username,
                 headimgurl: req.icon_url
             }).save()
-            console.log(user, '!!!!')
+            console.log(user, '!!!!1')
             // const token = Token.encrypt({id: user._id},'15d');
             // await User.update({_id: user._doc._id}, {token: token});
             // ctx.body = {
