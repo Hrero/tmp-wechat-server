@@ -94,6 +94,7 @@ module.exports = (app) => {
                 });
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
+                console.log(to_url, '====')
                 ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9ba2105f9a09cbec&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
