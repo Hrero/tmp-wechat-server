@@ -34,25 +34,25 @@ const thirdLogin = async (ctx, options) => {
             console.log(user)
             const token = Token.encrypt({id: user._id},'15d');
             await User.update({_id: user._doc._id}, {token: token});
-            ctx.body = {
-                code: 1,
-                data: {
-                    token: token,
-                    userId: userid
-                },
-                msg: '绑定成功'
-            }
+            // ctx.body = {
+            //     code: 1,
+            //     data: {
+            //         token: token,
+            //         userId: userid
+            //     },
+            //     msg: '绑定成功'
+            // }
         } else {
             const token = Token.encrypt({id: isUser[0]._id},'15d');
             await User.update({_id: isUser[0]._doc._id}, {token: token});
-            ctx.body = {
-                code: 0,
-                data: {
-                    token,
-                    userId: isUser[0].userid
-                },
-                msg: '该用户已存在'
-            }
+            // ctx.body = {
+            //     code: 0,
+            //     data: {
+            //         token,
+            //         userId: isUser[0].userid
+            //     },
+            //     msg: '该用户已存在'
+            // }
         }
     }
     catch(err) {
