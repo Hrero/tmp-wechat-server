@@ -19,6 +19,9 @@ export default {
     components: {
         Navbar,
         Footer
+    },
+    mounted() {
+        this.httpService.getBind().then(res => {});
     }
 };
 </script>

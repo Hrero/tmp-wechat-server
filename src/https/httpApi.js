@@ -1,6 +1,9 @@
 import request from "./httpService";
 
 export default {
+    getBind(data) {
+        return request('/api/xcx/weChat/thirdLoginIn', data);
+    },
     getUserList(data) {
         return request('/api/user/getUserList', data);
     },
