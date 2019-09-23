@@ -17,52 +17,23 @@ const setOptions = function(ctx, method, handleParams) {
 }
 const thirdLogin = async (ctx, options) => {
     let req = options;
-    try {
-        let isUser = await User.find({openid: req.oid});
-        let userNumAll = await User.find({});
-        if (isUser.length === 0) {
-            let userNum = userNumAll.length + 1;
-            console.log(userNumAll.length + 1, '!!!!!userNumAll.length + 1!!!')
-            console.log(req.platform, userNum, req.uid, req.username, req.icon_url,'====')
-            let user = await new User({
-                platform: req.platform,
-                userid: userNum,
-                unionid: req.uid,
-                openid: req.oid,
-                username: req.username,
-                headimgurl: req.icon_url
-            }).save()
-            console.log(user, '!!!!1')
-            // const token = Token.encrypt({id: user._id},'15d');
-            // await User.update({_id: user._doc._id}, {token: token});
-            // ctx.body = {
-            //     code: 1,
-            //     data: {
-            //         token: token,
-            //         userId: userid
-            //     },
-            //     msg: '绑定成功'
-            // }
-        } else {
-            // const token = Token.encrypt({id: isUser[0]._id},'15d');
-            // await User.update({_id: isUser[0]._doc._id}, {token: token});
-            // ctx.body = {
-            //     code: 0,
-            //     data: {
-            //         token,
-            //         userId: isUser[0].userid
-            //     },
-            //     msg: '该用户已存在'
-            // }
-        }
-    }
-    catch(err) {
-        ctx.body = {
-            code: err.code,
-            data: '',
-            msg: err.errmsg
-        }
-        return;
+    let isUser = await User.find({openid: req.oid});
+    let userNumAll = await User.find({});
+    if (isUser.length === 0) {
+        let userNum = userNumAll.length + 1;
+        let user = await new User({
+            platform: req.platform,
+            userid: userNum,
+            unionid: req.uid,
+            openid: req.oid,
+            username: req.username,
+            headimgurl: req.icon_url
+        }).save()
+        const token = Token.encrypt({id: user._id},'15d');
+        await User.update({_id: user._doc._id}, {token: token});
+    } else {
+        const token = Token.encrypt({id: isUser[0]._id},'15d');
+        await User.update({_id: isUser[0]._doc._id}, {token: token});
     }
 };
 module.exports = (app) => {
@@ -103,7 +74,7 @@ module.exports = (app) => {
         } else {
             thirdLogin(ctx, {
                 platform: 'weChat',
-                uid: ctx.cookies.get('weChatUid')
+                oid: ctx.cookies.get('weChatoid')
             });
         }
         await next();

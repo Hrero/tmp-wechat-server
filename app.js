@@ -30,7 +30,7 @@ if (config.environment === 'test' || config.environment === 'development') {
     // 配置测试用数据
 } else {
     // tokenTest(app);
-    setWeChat(app);
+    // setWeChat(app);
 }
 app.use(serve(__dirname + "/dist",{ extensions: ['html']}));
 app.use(async (ctx, next) => {

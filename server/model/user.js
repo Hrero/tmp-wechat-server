@@ -14,6 +14,9 @@ const Schema = mongoose.Schema;
         platform: {
             type: String
         },
+        token: {
+            type: String
+        },
         unionid: {
             type: String
         },

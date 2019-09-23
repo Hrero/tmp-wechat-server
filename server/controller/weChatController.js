@@ -61,104 +61,71 @@ module.exports = {
         ctx.body = pc.decryptData(encryptedData, iv); // uid需要绑定企业
     },
     thirdLoginIn: async (ctx, next) => { // 新建用户和返回token
-        let req = ctx.request.body;
-        try {
-            for (const key in req) {
-                if (req[key] === undefined || req[key] === "") {
-                    throw new ApiError(ApiErrorNames.UserSomeNull)
-                }
-            }
-            let isUser = await User.find({openId: req.openId});
-            let userNumAll = await User.find({});
-            if (isUser.length === 0) {
-                userNum = userNumAll.length + 1;
-                let user = await new User({
-                    openId: req.openId,
-                    studentNumber: userNum,
-                    phoneNumber: userNum,
-                    nickName: null
-                }).save()
-                const token = Token.encrypt({id: user._id},'15d');
-                let tokenUpdate = await User.update({_id: user._doc._id}, {token: token});
-                ctx.body = {
-                    code: 1,
-                    data: {
-                        token: token,
-                        userId: user._doc._id
-                    },
-                    msg: '绑定成功'
-                }
+        let reqUrl = ctx.request.url;
+        if(!ctx.cookies.get('weChatOid')){
+            if( ctx.query.code && ctx.query.state) {
+                const weChatUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token';
+                const weChatParams = setOptions(ctx, 'GET', {
+                    appid: 'wxf58455f0c5a38d1d',
+                    secret: '914d770e7224e980b94ae6727e9c2810',
+                    code: ctx.query.code,
+                    grant_type: 'authorization_code'
+                });
+                const weChatInfo = await ctx.fetch(weChatUrl, weChatParams);
+                if(weChatInfo.unionid)  ctx.cookies.set('weChatUid', weChatInfo.unionid, cObj.long);
+                if(weChatInfo.openid)  ctx.cookies.set('weChatOid', weChatInfo.openid, cObj.long);
+                const userUrl = 'https://api.weixin.qq.com/sns/userinfo';
+                const userParams = setOptions(ctx, 'GET', {
+                    access_token: weChatInfo.access_token,
+                    openid: weChatInfo.openid,
+                    lang: 'zh_CN'
+                });
+                const userInfo = await ctx.fetch(userUrl, userParams);
+                this.modelGetBindOpenid(ctx, weChatInfo, userInfo);
             } else {
-                const token = Token.encrypt({id: isUser[0]._id},'15d');
-                await User.update({_id: isUser[0]._doc._id}, {token: token});
-                ctx.body = {
-                    code: 0,
-                    data: {
-                        token,
-                        userId: isUser[0]._id
-                    },
-                    msg: '该用户已存在'
-                }
+                const to_url = 'https://lmyear.com' + reqUrl;
+                ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+                return;
             }
+        } else {
+            this.modelGetBindOpenid(ctx, weChatInfo, userInfo);
         }
-        catch(err) {
-            ctx.body = {
-                code: err.code,
-                data: '',
-                msg: err.errmsg
-            }
-            return;
-        }
+        await next();
     },
-    getThirdLoginIn: async (ctx, next) => { // 新建用户和返回token
-        let req = ctx.request.body;
-        console.log(1)
-        try {
-            for (const key in req) {
-                if (req[key] === undefined || req[key] === "") {
-                    throw new ApiError(ApiErrorNames.UserSomeNull)
-                }
-            }
-            let isUser = await User.find({openId: req.openId});
-            let userNumAll = await User.find({});
-            if (isUser.length === 0) {
-                userNum = userNumAll.length + 1;
-                let user = await new User({
-                    openId: req.openId,
-                    studentNumber: userNum,
-                    phoneNumber: userNum,
-                    nickName: null
-                }).save()
-                const token = Token.encrypt({id: user._id},'15d');
-                let tokenUpdate = await User.update({_id: user._doc._id}, {token: token});
-                ctx.body = {
-                    code: 1,
-                    data: {
-                        token: token,
-                        userId: user._doc._id
-                    },
-                    msg: '绑定成功'
-                }
-            } else {
-                const token = Token.encrypt({id: isUser[0]._id},'15d');
-                await User.update({_id: isUser[0]._doc._id}, {token: token});
-                ctx.body = {
-                    code: 0,
-                    data: {
-                        token,
-                        userId: isUser[0]._id
-                    },
-                    msg: '该用户已存在'
-                }
-            }
-        }
-        catch(err) {
+    modelGetBindOpenid: async (ctx, weChatInfo, userInfo) => {
+        let isUser = await User.find({openid: weChatInfo.openid || ctx.cookies.get('weChatOid')});
+        let userNumAll = await User.find({});
+        if (isUser.length === 0) {
+            let userNum = userNumAll.length + 1;
+            let user = await new User({
+                platform: 'weChat',
+                userid: userNum,
+                unionid: weChatInfo.unionid || ctx.cookies.get('weChatUid'),
+                openid: weChatInfo.openid || ctx.cookies.get('weChatOid'),
+                username: userInfo.nickname,
+                headimgurl: userInfo.headimgurl
+            }).save()
+            const token = Token.encrypt({id: user._id},'15d');
+            let tokenUpdate = await User.update({_id: user._doc._id}, {token: token});
             ctx.body = {
-                code: err.code,
-                data: '',
-                msg: err.errmsg
+                code: 1,
+                data: {
+                    token: token,
+                    userId: user._doc._id
+                },
+                msg: '绑定成功'
             }
-            return;
+        } else {
+            const token = Token.encrypt({id: isUser[0]._id},'15d');
+            await User.update({_id: isUser[0]._doc._id}, {token: token});
+            ctx.body = {
+                code: 0,
+                data: {
+                    token,
+                    userId: isUser[0]._id
+                },
+                msg: '该用户已存在'
+            }
         }
     },
     authInfo: async (ctx, next) => { // 存入其他信息接口
