@@ -1,24 +1,24 @@
 <template>
     <section class="body-container">
-        <Tabs value="user">
+        <!-- <Tabs value="user">
             <TabPane label="用户" name="user">
                 <Users />
             </TabPane>
             <TabPane label="商品" name="product">
                 <ProductList />
             </TabPane>
-        </Tabs>
+        </Tabs> -->
     </section>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import Users from './Users.vue';
-import ProductList from './ProductList.vue';
+// import ProductList from './ProductList.vue';
 
 export default {
     name: "home",
-    components: { ProductList, Users }
+    // components: { ProductList, Users }
 };
 </script>
 
