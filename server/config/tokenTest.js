@@ -2,8 +2,8 @@
 const sha1 = require("sha1");
 var config = {
     wechat:{
-        appID:"wx9ba2105f9a09cbec",
-        appSecret:"e64d3c6f0f9630f2e631baae706c7c3b",
+        appID:"wxf58455f0c5a38d1d",
+        appSecret:"914d770e7224e980b94ae6727e9c2810",
         token:"haohao"
     }
 }
