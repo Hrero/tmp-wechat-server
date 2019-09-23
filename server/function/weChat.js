@@ -21,7 +21,7 @@ const thirdLogin = async (ctx, options) => {
         let isUser = await User.find({openid: req.oid});
         let userNumAll = await User.find({});
         if (isUser.length === 0) {
-            userNum = userNumAll.length + 1;
+            let userNum = userNumAll.length + 1;
             console.log(userNumAll.length + 1, '!!!!!userNumAll.length + 1!!!')
             console.log(req.platform, userNum, req.uid, req.username, req.icon_url,'====')
             let user = await new User({
