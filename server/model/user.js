@@ -8,6 +8,9 @@ const Schema = mongoose.Schema;
             unique: true,
             required: true
         },
+        userid: {
+            type: String
+        },
         platform: {
             type: String
         },
