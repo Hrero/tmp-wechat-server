@@ -21,6 +21,7 @@ export default {
         Footer
     },
     mounted() {
+        console.log(1)
         this.httpService.getBind().then(res => {});
     }
 };
