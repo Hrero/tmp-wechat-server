@@ -10,7 +10,6 @@ const fs = require('fs');
  *     params: 请求参数 类型: 对象
  * }
  * */
-
 module.exports = function (url, conf) {
     let options = {
         method: conf.method === 'GET' ? 'GET' : 'POST',

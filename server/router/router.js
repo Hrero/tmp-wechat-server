@@ -3,8 +3,10 @@ const fs = require('fs');
 const router = require('koa-router')();
 const ctrl = require('../proxy/proxyCtrl');
 // api路由
-const routerApi = require('./routerApi');
-router.use('', routerApi.routes(), routerApi.allowedMethods());
+const routerWechat = require('./routerWechat');
+router.use('', routerWechat.routes(), routerWechat.allowedMethods());
+// const routerApi = require('./routerApi');
+// router.use('', routerApi.routes(), routerApi.allowedMethods());
 
 router.post("/api/appInfo", async( ctx, next) => {
     let newAgents = await fn.getBackAgents(ctx);

@@ -12,7 +12,7 @@ const path = require("path");
 const app = require('../../app');
 const debug = require('debug')('app');
 const webSocket = require('ws');
-const wsCallback = require('../../server/function/socket');
+// const wsCallback = require('../../server/function/socket');
 
 /**
  * Get port from environment and store in Express.

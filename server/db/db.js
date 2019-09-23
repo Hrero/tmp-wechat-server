@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/server');
-const DB_URL = `mongodb://${config.apiProxy.javaServer}:27017/second_hand_express_transaction`;
+const DB_URL = `mongodb://${config.apiProxy.javaServer}:27017/wechat_tmp`;
 
 mongoose.connect(DB_URL)
 

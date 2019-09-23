@@ -1,4 +1,4 @@
-const Remarks = require('../model/remarks');
+// const Remarks = require('../model/remarks');
 const jwt = require('jsonwebtoken');
 
 module.exports = async (ws, req) => {
@@ -27,7 +27,7 @@ module.exports = async (ws, req) => {
     });
     ws.on('message', async message => {
         if (userId) {
-            const data = await Remarks.find({status: 0, toUid: userId});
+            // const data = await Remarks.find({status: 0, toUid: userId});
             const length = data.length;
             ws.send(JSON.stringify({
                 code: 0,
