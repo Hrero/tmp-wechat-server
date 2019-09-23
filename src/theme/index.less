@@ -1,0 +1,47 @@
+@import '../assets/less/main.less';
+@import '~iview/src/styles/index.less';
+
+// Here are the variables to cover, such as:
+@primary-color: @colorSystemMain;
+.head-search{
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    .ivu-input-wrapper{
+        .ivu-input-suffix{
+            display: flex;
+            align-items: center;
+            transform: translateX(10px) scale(1.3);
+            .pointer();
+        }
+        .ivu-input{
+            .size(200px, 30px);
+            .fz(12px);
+            line-height: 30px;
+            border-radius: 40px;
+            background-color:@colorBj333 !important;
+            border-color: @colorFont666;
+        }
+    }
+}
+.head-user-online{
+    .ivu-dropdown-item{
+        text-align: left;
+    }
+    .dropdown-item-nomail{
+        text-align: center;
+    }
+}
+.body-container{
+    section{
+        .ivu-tabs{
+            .size(1200px, auto);
+            margin:o auto;
+            .center(flex);
+            flex-direction: column;
+            .ivu-tabs-bar{
+                border-bottom: 0px solid #dcdee2 !important;
+            }
+        }
+    }
+}

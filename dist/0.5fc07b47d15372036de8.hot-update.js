@@ -1,0 +1,11 @@
+webpackHotUpdate(0,{
+
+/***/ "./src/router/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(\"./node_modules/_vue@2.6.10@vue/dist/vue.esm.js\");\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(\"./node_modules/_vue-router@3.0.2@vue-router/dist/vue-router.esm.js\");\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_layout_layout__ = __webpack_require__(\"./src/views/layout/layout.vue\");\n\n\n\n\n__WEBPACK_IMPORTED_MODULE_0_vue__[\"default\"].use(__WEBPACK_IMPORTED_MODULE_1_vue_router__[\"a\" /* default */]);\n\n/* harmony default export */ __webpack_exports__[\"a\"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__[\"a\" /* default */]({\n    routes: [{\n        path: '/',\n        name: 'layout',\n        component: __WEBPACK_IMPORTED_MODULE_2__views_layout_layout__[\"a\" /* default */]\n    }, {\n        path: '/',\n        name: 'layout',\n        component: __WEBPACK_IMPORTED_MODULE_2__views_layout_layout__[\"a\" /* default */]\n    }]\n}));//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvcm91dGVyL2luZGV4LmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vL3NyYy9yb3V0ZXIvaW5kZXguanM/MzY3MiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVnVlIGZyb20gJ3Z1ZSdcbmltcG9ydCBSb3V0ZXIgZnJvbSAndnVlLXJvdXRlcidcbmltcG9ydCBsYXlvdXQgZnJvbSAnQC92aWV3cy9sYXlvdXQvbGF5b3V0J1xuXG5WdWUudXNlKFJvdXRlcilcblxuZXhwb3J0IGRlZmF1bHQgbmV3IFJvdXRlcih7XG4gIHJvdXRlczogW1xuICAgIHtcbiAgICAgICAgcGF0aDogJy8nLFxuICAgICAgICBuYW1lOiAnbGF5b3V0JyxcbiAgICAgICAgY29tcG9uZW50OiBsYXlvdXRcbiAgICB9LFxuICAgIHtcbiAgICAgICAgcGF0aDogJy8nLFxuICAgICAgICBuYW1lOiAnbGF5b3V0JyxcbiAgICAgICAgY29tcG9uZW50OiBsYXlvdXQgXG4gICAgfVxuICBdXG59KVxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIHNyYy9yb3V0ZXIvaW5kZXguanMiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFIQTtBQU1BO0FBQ0E7QUFDQTtBQUhBO0FBUEEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/router/index.js\n");
+
+/***/ })
+
+})

@@ -1,0 +1,89 @@
+@charset "UTF-8";
+//租葛亮UI规范H5
+
+//颜色规范
+//------系统色
+@colorSystemMain: #EFB917;
+@colorSystemF7F: #F7F7F7;
+@colorSystemFFF: #FFFFFF;
+//------文字色
+@colorFont333: #333333;
+@colorFont666: #666666;
+@colorFont999: #999999;
+@colorFontA54: #A54A06;
+@colorFontF60: #F60A0A;
+@colorFont1F8: #1F84FA;
+@colorFontFFF: #FFFFFF;
+@colorFontE6E: #E6E6E6;
+//------背景色
+@colorBj333: #333333;
+@colorBjE6E: #E6E6E6;
+@colorBjFFF: #FFFFFF;
+@colorBjEFB: #EFB917;
+@colorBjF7F: #F7F7F7;
+@colorBjFF5: #FF5C5C;
+@colorBjFFE: #FFE6E5;
+@colorBjEFA: #EFAC17;
+@colorBjEFC: #EFCF17;
+@colorBjFF7: #FF7171;
+@colorBjEE3: #EE3F3F;
+//------芝麻色系
+@colorZmCompany: #0083F0;
+@colorZmPersonal: #1CCFC9;
+//------京东色系
+@colorJdPersonal: #DE4037;
+//-----字体（中文）
+@fontFamilyCommon: PingFangSC-Regular, Helvetica;
+@fontFamilyBold: PingFangSC-SemiBold, Helvetica-SemiBold;
+@fontFamilyLight: PingFangSC-Light, Helvetica--Light;
+@fontFamilySpec: Akrobat;
+
+//字体大小
+@fontSize18: 18px;
+@fontSize16: 16px;
+@fontSize14: 14px;
+@fontSize12: 12px;
+
+@bg_home_logo: url(../images/logo.png);
+
+// 盒子宽高
+.size(@w, @h) {  width: @w;  height: @h;}
+// 居中, CSS3 平移方式, 兼容性不行
+.center(translate) {  position: absolute;  top: 50%; left: 50%;  transform: translate(-50%, -50%);}
+// 居中, Flex 方式, 兼容性不行
+.center(flex) {  display: flex;  align-items: center;  justify-content: center;}
+// 固定定位
+.fixed() { position: fixed; _position: absolute; *zoom: 1; }
+// 遮罩层, 全屏遮罩、区域遮罩
+.over-screen(fixed) {  .fixed();  top: 0;  left: 0;  right: 0;  bottom: 0;}
+// 全屏大图背景
+.fullscreen-bg(@url) {    width: 100vw;    height: 100vh;    background: url(@url) no-repeat 50% 50%;    background-size: cover;    }    
+// 扩展点击区域
+.extend-click() {position: relative;&:before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;}}
+// 字体大小
+.fz(@fz) {  font-size: @fz;}
+// 字体颜色 + 自身 Hover
+.color(@color, @hovercolor) { color: @color; &:hover { color: @hovercolor; }} 
+.color(@color) { color: @color;}
+// 正常字体样式
+.normal-font() {font-weight: normal;font-style: normal;}
+// 禁止换行, 文本溢出省略号显示 (一行)
+.ellipsis() {white-space: normal;word-wrap: break-word;word-break: break-all;-o-text-overflow: ellipsis;-ms-text-overflow: ellipsis;text-overflow: ellipsis;overflow: hidden;}
+// 链接默认无下划线，hover后有下划线的样式
+.hover-link() { text-decoration: none; &:hover { text-decoration: underline;}}
+// 盒子阴影 box-shadow: 水平阴影的位置, 垂直阴影的位置, 模糊距离, 阴影的大小, 阴影的颜色, 阴影开始方向（默认是从里往外，设置inset就是从外往里）;
+.box-shadow() { box-shadow: 0px 5px 10px 0px @colorBjE6E;}
+// 盒子 Hover
+.box-hover() {transition: all .2s linear;&:hover {box-shadow: 0 15px 30px rgba(0, 0, 0, .1);transform: translate3d(0, -2px, 0);}}
+// 浮动
+.fl() {float: left;}.fr() {float: right;}
+// 清除浮动
+.clearfix() {*zoom: 1;&:after {display: block;clear: both;content: '';visibility: hidden;height: 0;}}
+// 禁止文本被选择
+.user-select() {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+// 吸顶导航
+.fix-header(@h: 70px) {.fixed();top: 0;left: 0;width: 100%;height: @h;z-index: 1000;}
+// 输入框
+.input-text() {display: block;width: 100%;padding: 4px 8px;font-size: 14px;line-height: 1.42858;color: #333;border: 1px solid #ddd;background-color: #fff;border-radius: 3px;}
+// 小手
+.pointer() {cursor:pointer;}

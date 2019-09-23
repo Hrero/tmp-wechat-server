@@ -1,0 +1,11 @@
+webpackHotUpdate(2,{
+
+/***/ "./src/https/httpApi.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__httpService__ = __webpack_require__(\"./src/https/httpService.js\");\n\n\n/* harmony default export */ __webpack_exports__[\"a\"] = ({\n    getUserList: function getUserList(data) {\n        return Object(__WEBPACK_IMPORTED_MODULE_0__httpService__[\"a\" /* default */])('/api/getUserList', data);\n    },\n    getCommodityList: function getCommodityList(data) {\n        return Object(__WEBPACK_IMPORTED_MODULE_0__httpService__[\"a\" /* default */])('/api/getCommodityList', data);\n    },\n    addUser: function addUser(data) {\n        return Object(__WEBPACK_IMPORTED_MODULE_0__httpService__[\"a\" /* default */])('/api/addUser', data);\n    },\n    handleEditStatus: function handleEditStatus(data) {\n        return Object(__WEBPACK_IMPORTED_MODULE_0__httpService__[\"a\" /* default */])('/api/editCommodityStatus', data);\n    }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaHR0cHMvaHR0cEFwaS5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvaHR0cHMvaHR0cEFwaS5qcz85ZTEzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCByZXF1ZXN0IGZyb20gXCIuL2h0dHBTZXJ2aWNlXCI7XG5cbmV4cG9ydCBkZWZhdWx0IHtcbiAgICBnZXRVc2VyTGlzdChkYXRhKSB7XG4gICAgICAgIHJldHVybiByZXF1ZXN0KCcvYXBpL2dldFVzZXJMaXN0JywgZGF0YSk7XG4gICAgfSxcbiAgICBnZXRDb21tb2RpdHlMaXN0KGRhdGEpIHtcbiAgICAgICAgcmV0dXJuIHJlcXVlc3QoJy9hcGkvZ2V0Q29tbW9kaXR5TGlzdCcsIGRhdGEpO1xuICAgIH0sXG4gICAgYWRkVXNlcihkYXRhKSB7XG4gICAgICAgIHJldHVybiByZXF1ZXN0KCcvYXBpL2FkZFVzZXInLCBkYXRhKTtcbiAgICB9LFxuICAgIGhhbmRsZUVkaXRTdGF0dXMoZGF0YSkge1xuICAgICAgICByZXR1cm4gcmVxdWVzdCgnL2FwaS9lZGl0Q29tbW9kaXR5U3RhdHVzJywgZGF0YSk7XG4gICAgfVxufTtcblxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyBzcmMvaHR0cHMvaHR0cEFwaS5qcyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFaQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/https/httpApi.js\n");
+
+/***/ })
+
+})
