@@ -22,7 +22,9 @@ export default {
     },
     mounted() {
         console.log(1)
-        this.httpService.getBind().then(res => {});
+        this.httpService.getBind({
+            url: '/'
+        }).then(res => {});
     }
 };
 </script>

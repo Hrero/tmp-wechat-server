@@ -61,7 +61,7 @@ module.exports = {
         ctx.body = pc.decryptData(encryptedData, iv); // uid需要绑定企业
     },
     thirdLoginIn: async (ctx, next) => { // 新建用户和返回token
-        let reqUrl = ctx.request.url;
+        let reqUrl = ctx.request.body.url;
         if(!ctx.cookies.get('weChatOid')){
             if( ctx.query.code && ctx.query.state) {
                 const weChatUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token';
@@ -81,9 +81,43 @@ module.exports = {
                     lang: 'zh_CN'
                 });
                 const userInfo = await ctx.fetch(userUrl, userParams);
-                this.modelGetBindOpenid(ctx, weChatInfo, userInfo);
+                let isUser = await User.find({openid: weChatInfo.openid || ctx.cookies.get('weChatOid')});
+                let userNumAll = await User.find({});
+                if (isUser.length === 0) {
+                    let userNum = userNumAll.length + 1;
+                    let user = await new User({
+                        platform: 'weChat',
+                        userid: userNum,
+                        unionid: weChatInfo.unionid || ctx.cookies.get('weChatUid'),
+                        openid: weChatInfo.openid || ctx.cookies.get('weChatOid'),
+                        username: userInfo.nickname,
+                        headimgurl: userInfo.headimgurl
+                    }).save()
+                    const token = Token.encrypt({id: user._id},'15d');
+                    let tokenUpdate = await User.update({_id: user._doc._id}, {token: token});
+                    ctx.body = {
+                        code: 1,
+                        data: {
+                            token: token,
+                            userId: user._doc._id
+                        },
+                        msg: '绑定成功'
+                    }
+                } else {
+                    const token = Token.encrypt({id: isUser[0]._id},'15d');
+                    await User.update({_id: isUser[0]._doc._id}, {token: token});
+                    ctx.body = {
+                        code: 0,
+                        data: {
+                            token,
+                            userId: isUser[0]._id
+                        },
+                        msg: '该用户已存在'
+                    }
+                }
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
+                console.log(to_url)
                 ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
