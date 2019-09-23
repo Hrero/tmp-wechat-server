@@ -70,8 +70,8 @@ module.exports = (app) => {
             if( ctx.query.code && ctx.query.state) {
                 const weChatUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token';
                 const weChatParams = setOptions(ctx, 'GET', {
-                    appid: 'wx9ba2105f9a09cbec',
-                    secret: 'e64d3c6f0f9630f2e631baae706c7c3b',
+                    appid: 'wxf58455f0c5a38d1d',
+                    secret: '914d770e7224e980b94ae6727e9c2810',
                     code: ctx.query.code,
                     grant_type: 'authorization_code'
                 });
@@ -95,7 +95,7 @@ module.exports = (app) => {
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
                 console.log(to_url, '====')
-                ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9ba2105f9a09cbec&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+                ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
         } else {
