@@ -1,6 +1,6 @@
 {
   "apps": [{
-    "name": "speedy-mina-server",
+    "name": "tmp-wechat-server",
     "script": "server/bin/www",
     "node_args": "--harmony"
   }],
@@ -9,9 +9,9 @@
       "user": "root",
       "host": "49.234.63.236",
       "ref": "origin/master",
-      "repo": "git@github.com:Hrero/speedy-admin-server.git",
-      "path": "/www/speedy-mina-server",
-      "post-deploy": "bash /www/speedy-mina-server/current/deploy.sh"
+      "repo": "git@github.com:Hrero/tmp-wechat-server.git",
+      "path": "/www/tmp-wechat-server",
+      "post-deploy": "bash /www/tmp-wechat-server/current/deploy.sh"
     }
   }
 }
