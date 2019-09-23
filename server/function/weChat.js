@@ -80,6 +80,7 @@ module.exports = (app) => {
                 const weChatInfo = await ctx.fetch(weChatUrl, weChatParams);
                 if(weChatInfo.unionid)  ctx.cookies.set('weChatUid', weChatInfo.unionid, cObj.long);
                 if(weChatInfo.openid)  ctx.cookies.set('weChatOid', weChatInfo.openid, cObj.long);
+                console.log(weChatInfo, '====!!!====')
                 const userUrl = 'https://api.weixin.qq.com/sns/userinfo';
                 const userParams = setOptions(ctx, 'GET', {
                     access_token: weChatInfo.access_token,
