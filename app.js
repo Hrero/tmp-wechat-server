@@ -5,6 +5,7 @@ const router = require('./server/router/router');
 const logUtil = require("./server/config/log");
 const fetch = require('./server/proxy/fetch');
 const config = require('./server/config/server');
+const tokenTest = require('./server/config/tokenTest');
 // const socket = require('./server/function/socket');
 const setWeChat = require('./server/function/weChat');
 const schedule = require('./server/function/schedule');
@@ -28,7 +29,8 @@ app.use(koaBody({ // 配置文件上传
 if (config.environment === 'test' || config.environment === 'development') {
     // 配置测试用数据
 } else {
-    setWeChat(app);
+    tokenTest(app);
+    // setWeChat(app);
 }
 app.use(serve(__dirname + "/dist",{ extensions: ['html']}));
 app.use(async (ctx, next) => {
