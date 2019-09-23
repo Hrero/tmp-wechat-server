@@ -20,7 +20,7 @@ const thirdLogin = async (ctx, options) => {
     try {
         let isUser = await User.find({openId: req.oid});
         let userNumAll = await User.find({});
-        console.log(userNumAll)
+        console.log(userNumAll, '====')
         if (isUser.length === 0) {
             userNum = userNumAll.length + 1;
             let user = await new User({
@@ -31,9 +31,9 @@ const thirdLogin = async (ctx, options) => {
                 username: req.username,
                 headimgurl: req.icon_url
             }).save()
-            console.log(user)
-            const token = Token.encrypt({id: user._id},'15d');
-            await User.update({_id: user._doc._id}, {token: token});
+            console.log(user, '!!!!')
+            // const token = Token.encrypt({id: user._id},'15d');
+            // await User.update({_id: user._doc._id}, {token: token});
             // ctx.body = {
             //     code: 1,
             //     data: {
@@ -43,8 +43,8 @@ const thirdLogin = async (ctx, options) => {
             //     msg: '绑定成功'
             // }
         } else {
-            const token = Token.encrypt({id: isUser[0]._id},'15d');
-            await User.update({_id: isUser[0]._doc._id}, {token: token});
+            // const token = Token.encrypt({id: isUser[0]._id},'15d');
+            // await User.update({_id: isUser[0]._doc._id}, {token: token});
             // ctx.body = {
             //     code: 0,
             //     data: {
