@@ -119,7 +119,16 @@ module.exports = {
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
                 console.log(ctx, '======')
-                ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+                const userUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+                const userParams = setOptions(ctx, 'GET', {
+                    appid: 'wxf58455f0c5a38d1d',
+                    redirect_uri: encodeURIComponent(to_url),
+                    response_type: 'code',
+                    scope: 'snsapi_userinfo',
+                    state: '1#wechat_redirect'
+                });
+                await ctx.fetch(userUrl, userParams);
+                // ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
         } else {
