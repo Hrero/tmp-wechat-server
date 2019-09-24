@@ -3,7 +3,7 @@ const defaultSchemaOptions = require('../public/defaultSchemaOptions');
 const Schema = mongoose.Schema;
 
     User = new Schema({ // 用户主表
-        openid: { // 用户的唯一标识 _id = userId
+        openid: { // 用户的唯一标识
             type: String,
             unique: true,
             required: true
