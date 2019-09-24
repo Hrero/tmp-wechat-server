@@ -83,7 +83,7 @@ module.exports = (app) => {
         } else {
             thirdLogin(ctx, {
                 platform: 'weChat',
-                oid: ctx.cookies.get('weChatoid')
+                oid: ctx.cookies.get('weChatOid')
             });
         }
         await next();
