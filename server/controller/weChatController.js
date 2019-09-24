@@ -40,6 +40,7 @@ const getAccessToken = async (ctx, next) => { // 获取access_token
     return new Promise((resolve, reject) => {
         let result = '';
         let curTime = getTimestamp()
+        console.log('lal1112')
         let accessToken = require('../config/accessToken.json')
         console.log('lal111')
         if (curTime <= accessToken.expiresTime) return resolve(accessToken['access_token'])
