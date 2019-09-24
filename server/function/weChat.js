@@ -17,6 +17,7 @@ const setOptions = function(ctx, method, handleParams) {
 }
 const thirdLogin = async (ctx, options) => {
     let req = options;
+    console.log(3)
     let isUser = await User.find({openid: req.oid});
     let userNumAll = await User.find({});
     if (isUser.length === 0) {
