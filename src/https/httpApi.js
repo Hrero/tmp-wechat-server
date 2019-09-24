@@ -4,6 +4,9 @@ export default {
     getBind(data) {
         return request('/api/xcx/weChat/thirdLoginIn', data);
     },
+    getSign(data) {
+        return request('/api/xcx/weChat/sign', data);
+    },
     getUserList(data) {
         return request('/api/user/getUserList', data);
     },

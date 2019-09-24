@@ -191,7 +191,7 @@ module.exports = {
 
     },
     sign: async (ctx, next) => { // 签名
-        let url = req.query.url // 获取前端传递的url
+        let url = ctx.request.body.url // 获取前端传递的url
         let timestamp = getTimestamp() // 时间戳
         let nonceStr = getNonceStr(16) // 随机16位字符串
         let accessToken = await getAccessToken(ctx, next) // 获取accessToken(用于获取jsapiTicket)
