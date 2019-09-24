@@ -20,17 +20,14 @@ const setOptions = (ctx, method, handleParams) => { // 设置和获取header
         }
     }
 }
-const getTicke = async (ctx, ACCESS_TOKEN) => { // 获取jsApi_ticke
+const getTicke = async (ctx, access_token) => { // 获取jsApi_ticke
     return new Promise((resolve, reject) => {
-        let result = '';
         let curTime = getTimestamp()
         let jsapiObj = require('../config/jsapiTicket.json')
         if(curTime <= jsapiObj.expiresTime) return resolve(jsapiObj.ticket)
-        let userUrl = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${ACCESS_TOKEN}&type=jsapi`
+        let userUrl = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${access_token}&type=jsapi`
         ctx.fetch(userUrl, setOptions(ctx, 'GET', {})).then(chunk => {
-            console.log(chunk, ' 1=>')
-            result += chunk
-            let jsapiObj = JSON.parse(result)
+            jsapiObj.ticket = chunk.ticket
             jsapiObj.expiresTime = getTimestamp() + 7000
             fs.writeFileSync(wxConfig.jsapiTicketPath, JSON.stringify(jsapiObj))
             resolve(jsapiObj.ticket)
@@ -39,7 +36,6 @@ const getTicke = async (ctx, ACCESS_TOKEN) => { // 获取jsApi_ticke
 }
 const getAccessToken = async (ctx, next) => { // 获取access_token
     return new Promise((resolve, reject) => {
-        let result = '';
         let curTime = getTimestamp()
         let accessToken = require('../config/accessToken.json')
         if (curTime <= accessToken.expiresTime) return resolve(accessToken['access_token'])
@@ -200,6 +196,7 @@ module.exports = {
         console.log('jsapiTicket: ', jsapiTicket)
         let str = `jsapi_ticket=${jsapiTicket}noncestr=${nonceStr}timestamp=${timestamp}url=${url}` // 对四个数据做字典序的排序
         let signature = sha1(str) // 使用sha1第三方模块进行加密得到的就是签名
+        console.log(str, 'str')
         ctx.body = {
             code: 0,
             msg: 'success',
