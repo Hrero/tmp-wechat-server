@@ -29,12 +29,17 @@ const thirdLogin = async (ctx, options) => {
             username: req.username,
             headimgurl: req.icon_url
         }).save()
+        console.log(2)
         const token = Token.encrypt({id: user._id},'15d');
         await User.update({_id: user._doc._id}, {token: token});
+        console.log(token,'====')
         if(token)  ctx.cookies.set('token', token, cObj.long);
     } else {
+        console.log(1)
         const token = Token.encrypt({id: isUser[0]._id},'15d');
+        console.log(token)
         await User.update({_id: isUser[0]._doc._id}, {token: token});
+        console.log(token,'====')
         if(token)  ctx.cookies.set('token', token, cObj.long);
     }
 };
