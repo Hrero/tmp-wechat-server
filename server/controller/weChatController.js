@@ -5,6 +5,7 @@ const Token = require('../function/token');
 const ApiError = require('../error/ApiError');
 const ApiErrorNames = require('../error/ApiErrorNames');
 const sha1 = require("sha1");
+const fs = require("fs");
 const wxConfig = require('../config/wechat.js')
 const serverUrl = config.apiProxy.javaServer;
 const setOptions = (ctx, method, handleParams) => { // 设置和获取header
