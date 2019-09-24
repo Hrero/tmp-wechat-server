@@ -31,9 +31,11 @@ const thirdLogin = async (ctx, options) => {
         }).save()
         const token = Token.encrypt({id: user._id},'15d');
         await User.update({_id: user._doc._id}, {token: token});
+        if(token)  ctx.cookies.set('token', token, cObj.long);
     } else {
         const token = Token.encrypt({id: isUser[0]._id},'15d');
         await User.update({_id: isUser[0]._doc._id}, {token: token});
+        if(token)  ctx.cookies.set('token', token, cObj.long);
     }
 };
 module.exports = (app) => {
@@ -58,13 +60,13 @@ module.exports = (app) => {
                     lang: 'zh_CN'
                 });
                 const userInfo = await ctx.fetch(userUrl, userParams);
-                // thirdLogin(ctx, {
-                //     platform: 'weChat',
-                //     uid: weChatInfo.unionid || ctx.cookies.get('weChatUid'),
-                //     oid: weChatInfo.openid || ctx.cookies.get('weChatOid'),
-                //     username: userInfo.nickname,
-                //     icon_url: userInfo.headimgurl
-                // });
+                thirdLogin(ctx, {
+                    platform: 'weChat',
+                    uid: weChatInfo.unionid || ctx.cookies.get('weChatUid'),
+                    oid: weChatInfo.openid || ctx.cookies.get('weChatOid'),
+                    username: userInfo.nickname,
+                    icon_url: userInfo.headimgurl
+                });
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
                 console.log(to_url, '====')
@@ -72,10 +74,10 @@ module.exports = (app) => {
                 return;
             }
         } else {
-            // thirdLogin(ctx, {
-            //     platform: 'weChat',
-            //     oid: ctx.cookies.get('weChatoid')
-            // });
+            thirdLogin(ctx, {
+                platform: 'weChat',
+                oid: ctx.cookies.get('weChatoid')
+            });
         }
         await next();
     });
