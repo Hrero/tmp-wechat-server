@@ -43,14 +43,11 @@ const getAccessToken = async (ctx, next) => { // 获取access_token
         let accessToken = require('../config/accessToken.json')
         if (curTime <= accessToken.expiresTime) return resolve(accessToken['access_token'])
         let userUrl = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${wxConfig.appid}&secret=${wxConfig.secret}`
-        console.log('lal111==bbbb')
         ctx.fetch(userUrl, setOptions(ctx, 'GET', {})).then(chunk => {
-            console.log(chunk, ' 2=>')
-            // result += chunk
-            // accessToken = JSON.parse(result)
-            // accessToken.expiresTime = getTimestamp() + 7000 // 当前时间s+7000s(accessToken两个小时有效期), 在上面判断如果这个时间小于当前时间则重新获取accessToken
-            // fs.writeFileSync(wxConfig.accessTokenPath, JSON.stringify(accessToken))
-            // resolve(accessToken["access_token"])
+            accessToken.access_token = chunk.access_token
+            accessToken.expiresTime = getTimestamp() + 7000 
+            fs.writeFileSync(wxConfig.accessTokenPath, JSON.stringify(accessToken))
+            resolve(accessToken["access_token"])
         });
     })
 }
@@ -196,7 +193,7 @@ module.exports = {
         let timestamp = getTimestamp() // 时间戳
         let nonceStr = getNonceStr(16) // 随机16位字符串
         let accessToken = await getAccessToken(ctx, next) // 获取accessToken(用于获取jsapiTicket)
-        console.log(accessToken)
+        console.log(accessToken, '=====')
         let jsapiTicket = await getTicke(ctx, accessToken) // 使用获取到的jsapiTicket
         console.log('accessToken: ', accessToken)
         console.log('jsapiTicket: ', jsapiTicket)
