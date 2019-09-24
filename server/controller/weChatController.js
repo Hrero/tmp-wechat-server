@@ -197,6 +197,8 @@ module.exports = {
         console.log('jsapiTicket: ', jsapiTicket)
         console.log('str: ', str)
         console.log('signature: ', signature)
+        console.log('timestamp: ', timestamp)
+        console.log('nonceStr: ', nonceStr)
         ctx.body = {
             code: 0,
             msg: 'success',
