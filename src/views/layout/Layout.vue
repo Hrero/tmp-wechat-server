@@ -1,8 +1,7 @@
 <template>
     <div>
         <Navbar/>
-            <van-Button />
-        <Button />
+        <van-button type="default">默认按钮</van-button>
         <section class="app-main">
             <transition name="fade-transform">
                 <router-view/>
