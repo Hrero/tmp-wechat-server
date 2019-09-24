@@ -69,86 +69,22 @@ module.exports = {
                 }
             }
             let isUser = await User.find({openId: req.openId});
-            let userNumAll = await User.find({});
-            if (isUser.length === 0) {
-                userNum = userNumAll.length + 1;
-                let user = await new User({
-                    openId: req.openId,
-                    studentNumber: userNum,
-                    phoneNumber: userNum,
-                    nickName: null
-                }).save()
-                const token = Token.encrypt({id: user._id},'15d');
-                let tokenUpdate = await User.update({_id: user._doc._id}, {token: token});
-                ctx.body = {
-                    code: 1,
-                    data: {
-                        token: token,
-                        userId: user._doc._id
-                    },
-                    msg: '绑定成功'
-                }
-            } else {
+            if (isUser.length !== 0) {
                 const token = Token.encrypt({id: isUser[0]._id},'15d');
                 await User.update({_id: isUser[0]._doc._id}, {token: token});
                 ctx.body = {
-                    code: 0,
+                    code: 1,
                     data: {
                         token,
                         userId: isUser[0]._id
                     },
                     msg: '该用户已存在'
                 }
-            }
-        }
-        catch(err) {
-            ctx.body = {
-                code: err.code,
-                data: '',
-                msg: err.errmsg
-            }
-            return;
-        }
-    },
-    getThirdLoginIn: async (ctx, next) => { // 新建用户和返回token
-        let req = ctx.request.body;
-        console.log(1)
-        try {
-            for (const key in req) {
-                if (req[key] === undefined || req[key] === "") {
-                    throw new ApiError(ApiErrorNames.UserSomeNull)
-                }
-            }
-            let isUser = await User.find({openId: req.openId});
-            let userNumAll = await User.find({});
-            if (isUser.length === 0) {
-                userNum = userNumAll.length + 1;
-                let user = await new User({
-                    openId: req.openId,
-                    studentNumber: userNum,
-                    phoneNumber: userNum,
-                    nickName: null
-                }).save()
-                const token = Token.encrypt({id: user._id},'15d');
-                let tokenUpdate = await User.update({_id: user._doc._id}, {token: token});
-                ctx.body = {
-                    code: 1,
-                    data: {
-                        token: token,
-                        userId: user._doc._id
-                    },
-                    msg: '绑定成功'
-                }
             } else {
-                const token = Token.encrypt({id: isUser[0]._id},'15d');
-                await User.update({_id: isUser[0]._doc._id}, {token: token});
                 ctx.body = {
                     code: 0,
-                    data: {
-                        token,
-                        userId: isUser[0]._id
-                    },
-                    msg: '该用户已存在'
+                    data: '不存在',
+                    msg: '不存在'
                 }
             }
         }

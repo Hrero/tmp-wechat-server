@@ -1,6 +1,8 @@
 <template>
     <div>
         <Navbar/>
+            <van-Button />
+        <Button />
         <section class="app-main">
             <transition name="fade-transform">
                 <router-view/>
@@ -13,7 +15,6 @@
 <script>
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
 export default {
     name: 'Layout',
     components: {

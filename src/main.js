@@ -1,38 +1,33 @@
 import Vue from 'vue'
-import {
-    Icon, Input, Message, Page, Form, FormItem, Upload, Drawer, Avatar, DropdownMenu, DropdownItem, Dropdown, Carousel, CarouselItem, Tabs, TabPane, Table, Button, Modal
-} from 'iview'
 import VueI18n from 'vue-i18n'
 import App from './App.vue'
 import router from './router'
 import zhCN from './assets/lang/zh-CN'
 import store from './store'
 import httpService from '@/https/httpApi';
-import './theme/index.less'
 import dateFormat from '@/vueFuntion/dateFormat';
+import { Lazyload , Button, Search, Loading, Swipe, SwipeItem, Tab, Tabs, RadioGroup, Radio, SwitchCell, DatetimePicker } from 'vant';
+import 'vant/lib/index.css';
 
 Vue.use(VueI18n)
-Vue.component('Icon', Icon)
-Vue.component('Upload', Upload)
-Vue.component('Page', Page)
-Vue.component('Drawer', Drawer)
-Vue.component('Button', Button)
-Vue.component('Modal', Modal)
-Vue.component('Table', Table)
-Vue.component('Input', Input)
-Vue.component('Avatar', Avatar)
-Vue.component('DropdownMenu', DropdownMenu)
-Vue.component('DropdownItem', DropdownItem)
-Vue.component('Dropdown', Dropdown)
-Vue.component('Carousel', Carousel)
-Vue.component('CarouselItem', CarouselItem)
-Vue.component('Tabs', Tabs)
-Vue.component('TabPane', TabPane)
-Vue.component('Form', Form)
-Vue.component('FormItem', FormItem)
+Vue.use(DatetimePicker);
+Vue.use(SwitchCell);
+Vue.use(Swipe);
+Vue.use(RadioGroup);
+Vue.use(Radio);
+Vue.use(SwipeItem);
+Vue.use(Loading);
+Vue.use(Vlf);
+Vue.use(Lazyload, options);
+Vue.use(Search);
+Vue.use(Button);
+Vue.use(filters);
+Vue.use(transComponents);
+Vue.use(VueClipboard);
+Vue.use(Tab).use(Tabs);
+
 Vue.prototype.httpService = httpService;
 Vue.prototype.$dateFormat = dateFormat;
-Vue.prototype.$Message = Message;
 Vue.config.productionTip = false
 const i18n = new VueI18n({locale: 'zhCN', messages: { zhCN }})
 
