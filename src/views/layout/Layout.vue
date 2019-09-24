@@ -25,15 +25,17 @@ export default {
         this.httpService.getBind({
             url: '/'
         }).then(res => {
-            let info = {
-                title: '助力循环经济 让世界更美好',
-                desc: '租葛亮0押金数码设备租赁平台 累计服务上百万家企业和个人用户',
-                link: "https://jd.zugeliang01.com/greenLife",
-                imgUrl: 'https://static2.zugeliang01.com/20190404/e18ba3e0-56c2-11e9-b483-a5e866e0063a.png',
-                iconUrl: 'https://static2.zugeliang01.com/20190404/e18ba3e0-56c2-11e9-b483-a5e866e0063a.png',
-                type: 99
-            };
-            this.$share(info, () => {});
+        });
+        let info = {
+            title: '助力循环经济 让世界更美好',
+            desc: '租葛亮0押金数码设备租赁平台 累计服务上百万家企业和个人用户',
+            link: "https://jd.zugeliang01.com/greenLife",
+            imgUrl: 'https://static2.zugeliang01.com/20190404/e18ba3e0-56c2-11e9-b483-a5e866e0063a.png',
+            iconUrl: 'https://static2.zugeliang01.com/20190404/e18ba3e0-56c2-11e9-b483-a5e866e0063a.png',
+            type: 99
+        };
+        this.$share(info, () => {
+            console.log(1)
         });
     }
 };

@@ -3,6 +3,7 @@ const config = require('../config/server');
 const cObj = require('../config/cookieSet');
 const User = require('../model/user');
 const Token = require('../function/token');
+const weConfig = require('../config/wechat')
 const setOptions = function(ctx, method, handleParams) {
     return {
         method: method,
@@ -38,8 +39,8 @@ module.exports = (app) => {
             if( ctx.query.code && ctx.query.state) {
                 const weChatUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token';
                 const weChatParams = setOptions(ctx, 'GET', {
-                    appid: 'wxf58455f0c5a38d1d',
-                    secret: '914d770e7224e980b94ae6727e9c2810',
+                    appid: weConfig.appid,
+                    secret: weConfig.secret,
                     code: ctx.query.code,
                     grant_type: 'authorization_code'
                 });
@@ -62,7 +63,7 @@ module.exports = (app) => {
                 });
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
-                ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+                ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ weConfig.appid +'&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
         }
