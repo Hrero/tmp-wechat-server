@@ -4,7 +4,10 @@ import App from './App.vue'
 import router from './router'
 import zhCN from './assets/lang/zh-CN'
 import store from './store'
+import Vlf from '@/vueFuntion/vlf';
 import httpService from '@/https/httpApi';
+import shareMethod from '@/vueFuntion/share';
+import VueClipboard from 'vue-clipboard2'
 import dateFormat from '@/vueFuntion/dateFormat';
 import { Lazyload , Button, Search, Loading, Swipe, SwipeItem, Tab, Tabs, RadioGroup, Radio, SwitchCell, DatetimePicker } from 'vant';
 import 'vant/lib/index.css';
@@ -24,10 +27,14 @@ Vue.use(Loading);
 Vue.use(Lazyload, options);
 Vue.use(Search);
 Vue.use(Button);
+Vue.use(Vlf);
+Vue.use(VueClipboard);
 Vue.use(Tab).use(Tabs);
 
 Vue.prototype.httpService = httpService;
 Vue.prototype.$dateFormat = dateFormat;
+Vue.prototype.$vlf = Vlf;
+Vue.prototype.$share = shareMethod;
 Vue.config.productionTip = false
 const i18n = new VueI18n({locale: 'zhCN', messages: { zhCN }})
 
