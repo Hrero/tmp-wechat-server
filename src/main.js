@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import App from './App.vue'
 import router from './router'
+import wx from 'weixin-js-sdk';
 import zhCN from './assets/lang/zh-CN'
 import store from './store'
 import Vlf from '@/vueFuntion/vlf';
@@ -40,7 +41,7 @@ const i18n = new VueI18n({locale: 'zhCN', messages: { zhCN }});
 
 router.beforeEach((to, from, next) => {
     httpService.getSign({
-        url: '/'
+        url: decodeURIComponent(window.location.href)
     }).then(res => {
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
