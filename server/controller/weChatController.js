@@ -40,20 +40,17 @@ const getAccessToken = async (ctx, next) => { // 获取access_token
     return new Promise((resolve, reject) => {
         let result = '';
         let curTime = getTimestamp()
-        console.log('lal1112')
         let accessToken = require('../config/accessToken.json')
-        console.log('lal111')
         if (curTime <= accessToken.expiresTime) return resolve(accessToken['access_token'])
-        console.log('lal111==')
         let userUrl = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${wxConfig.appid}&secret=${wxConfig.secret}`
         console.log('lal111==bbbb')
         ctx.fetch(userUrl, setOptions(ctx, 'GET', {})).then(chunk => {
             console.log(chunk, ' 2=>')
-            result += chunk
-            accessToken = JSON.parse(result)
-            accessToken.expiresTime = getTimestamp() + 7000 // 当前时间s+7000s(accessToken两个小时有效期), 在上面判断如果这个时间小于当前时间则重新获取accessToken
-            fs.writeFileSync(wxConfig.accessTokenPath, JSON.stringify(accessToken))
-            resolve(accessToken["access_token"])
+            // result += chunk
+            // accessToken = JSON.parse(result)
+            // accessToken.expiresTime = getTimestamp() + 7000 // 当前时间s+7000s(accessToken两个小时有效期), 在上面判断如果这个时间小于当前时间则重新获取accessToken
+            // fs.writeFileSync(wxConfig.accessTokenPath, JSON.stringify(accessToken))
+            // resolve(accessToken["access_token"])
         });
     })
 }
