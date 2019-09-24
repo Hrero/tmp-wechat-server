@@ -129,7 +129,8 @@ module.exports = {
                 });
                 await ctx.fetch(userUrl, userParams);
                 // ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
-                return;
+                // return;
+                await next();
             }
         } else {
             this.modelGetBindOpenid(ctx, weChatInfo, userInfo);
