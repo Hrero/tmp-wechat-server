@@ -191,8 +191,10 @@ module.exports = {
         let nonceStr = getNonceStr(16) // 随机16位字符串
         let accessToken = await getAccessToken(ctx, next) // 获取accessToken(用于获取jsapiTicket)
         let jsapiTicket = await getTicke(ctx, accessToken) // 使用获取到的jsapiTicket
+        console.log('accessToken: ', accessToken)
+        console.log('jsapiTicket: ', jsapiTicket)
         let str = `jsapi_ticket=${jsapiTicket}noncestr=${nonceStr}timestamp=${timestamp}url=${url}` // 对四个数据做字典序的排序
-        let signature = sha1(str)
+        let signature = sha1(str) // 使用sha1第三方模块进行加密得到的就是签名
         ctx.body = {
             code: 0,
             msg: 'success',
