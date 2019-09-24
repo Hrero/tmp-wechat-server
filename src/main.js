@@ -39,7 +39,7 @@ Vue.config.productionTip = false;
 const i18n = new VueI18n({locale: 'zhCN', messages: { zhCN }});
 
 router.beforeEach((to, from, next) => {
-    this.httpService.getSign({
+    httpService.getSign({
         url: '/'
     }).then(res => {
         console.log(res)
