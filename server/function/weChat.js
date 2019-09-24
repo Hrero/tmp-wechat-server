@@ -17,7 +17,6 @@ const setOptions = function(ctx, method, handleParams) {
 }
 const thirdLogin = async (ctx, options) => {
     let req = options;
-    console.log(3, req, '=======')
     let isUser = await User.find({openid: req.oid});
     let userNumAll = await User.find({});
     if (isUser.length === 0) {
@@ -30,19 +29,6 @@ const thirdLogin = async (ctx, options) => {
             username: req.username,
             headimgurl: req.icon_url
         }).save()
-        console.log(2)
-        const token = Token.encrypt({id: user._id},'15d');
-        console.log(token,'==!!!!==')
-        await User.update({_id: user._doc._id}, {token: token});
-        console.log(token,'====')
-        if(token)  ctx.cookies.set('token', token, cObj.long);
-    } else {
-        console.log(1)
-        const token = Token.encrypt({id: isUser[0]._id},'15d');
-        console.log(token)
-        await User.update({_id: isUser[0]._doc._id}, {token: token});
-        console.log(token,'====')
-        if(token)  ctx.cookies.set('token', token, cObj.long);
     }
 };
 module.exports = (app) => {
@@ -76,15 +62,9 @@ module.exports = (app) => {
                 });
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
-                console.log(to_url, '====')
                 ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
-        } else {
-            thirdLogin(ctx, {
-                platform: 'weChat',
-                oid: ctx.cookies.get('weChatOid')
-            });
         }
         await next();
     });
