@@ -38,11 +38,16 @@ const getTicke = async (ctx, ACCESS_TOKEN) => { // 获取jsApi_ticke
 }
 const getAccessToken = async (ctx, next) => { // 获取access_token
     return new Promise((resolve, reject) => {
+        console.log('lalal')
         let result = '';
         let curTime = getTimestamp()
+        console.log('lal')
         let accessToken = require('../config/accessToken.json')
+        console.log('lal111')
         if (curTime <= accessToken.expiresTime) return resolve(accessToken['access_token'])
+        console.log('lal111==')
         let userUrl = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${wxConfig.appid}&secret=${wxConfig.secret}`
+        console.log('lal111==bbbb')
         ctx.fetch(userUrl, setOptions(ctx, 'GET', {})).then(chunk => {
             console.log(chunk, ' 2=>')
             result += chunk
@@ -191,10 +196,15 @@ module.exports = {
 
     },
     sign: async (ctx, next) => { // 签名
+        console.log('aaa')
         let url = ctx.request.body.url // 获取前端传递的url
+        console.log(url)
         let timestamp = getTimestamp() // 时间戳
+        console.log(timestamp)
         let nonceStr = getNonceStr(16) // 随机16位字符串
+        console.log(nonceStr)
         let accessToken = await getAccessToken(ctx, next) // 获取accessToken(用于获取jsapiTicket)
+        console.log(accessToken)
         let jsapiTicket = await getTicke(ctx, accessToken) // 使用获取到的jsapiTicket
         console.log('accessToken: ', accessToken)
         console.log('jsapiTicket: ', jsapiTicket)
