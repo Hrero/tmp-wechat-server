@@ -63,7 +63,6 @@ module.exports = {
     thirdLoginIn: async (ctx, next) => { // 新建用户和返回token
         console.log(222)
         let reqUrl = ctx.request.body.url;
-        console.log(reqUrl)
         if(!ctx.cookies.get('weChatOid')){
             if( ctx.query.code && ctx.query.state) {
                 const weChatUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token';
@@ -119,7 +118,7 @@ module.exports = {
                 }
             } else {
                 const to_url = 'https://lmyear.com' + reqUrl;
-                console.log(to_url)
+                console.log(ctx, '======')
                 ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf58455f0c5a38d1d&redirect_uri='+ encodeURIComponent(to_url) +'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
                 return;
             }
