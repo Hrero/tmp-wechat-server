@@ -2,7 +2,7 @@
 const config = require('../config/server');
 const cObj = require('../config/cookieSet');
 const User = require('../model/user');
-const Token = require('../function/token');
+const Token = require('./token');
 const weConfig = require('../config/wechat')
 const setOptions = function(ctx, method, handleParams) {
     return {
