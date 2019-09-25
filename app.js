@@ -30,7 +30,7 @@ if (config.environment === 'test' || config.environment === 'development') {
     // 配置测试用数据
 } else {
     // tokenTest(app);
-    setWeChat(app);
+    // setWeChat(app);
 }
 app.use( async (ctx, next) => {
     if (ctx.method == 'POST' && ctx.is('text/xml')) {

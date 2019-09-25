@@ -1,8 +1,8 @@
 const path = require('path')
 
 module.exports = {
-    appid: 'wxf58455f0c5a38d1d', 
-    secret: '914d770e7224e980b94ae6727e9c2810',
+    appid: 'wx9ba2105f9a09cbec', 
+    secret: 'e64d3c6f0f9630f2e631baae706c7c3b',
     EncodingAESKey: 'qAhbkTfPOv0wAASDsGjKrGWGTdwb0wheixJIvFFWwg5',
     token: 'haohao',
     accessTokenPath: path.resolve(__dirname, './accessToken.json'), 
