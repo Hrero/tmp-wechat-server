@@ -7,7 +7,7 @@ const fetch = require('./server/proxy/fetch');
 const config = require('./server/config/server');
 // const tokenTest = require('./server/config/tokenTest');
 // const socket = require('./server/function/socket');
-const xmlParse = require('./server/function/xmlParse');
+// const xmlParse = require('./server/function/xmlParse');
 const setWeChat = require('./server/function/wechatLogin');
 const schedule = require('./server/function/schedule');
 const app = new Koa();
@@ -31,7 +31,7 @@ if (config.environment === 'test' || config.environment === 'development') {
     // tokenTest(app);
     setWeChat(app);
 }
-app.use(xmlParse);
+// app.use(xmlParse);
 app.use(serve(__dirname + "/dist",{ extensions: ['html']}));
 app.use(async (ctx, next) => {
     const start = new Date(); // 响应开始时间
