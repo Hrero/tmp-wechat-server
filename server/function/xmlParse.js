@@ -15,7 +15,6 @@ module.exports = () => {
                         .catch(reject)
                 })
             })
-
             await promise.then((result) => {
                     ctx.req.body = result
                 })
@@ -23,7 +22,7 @@ module.exports = () => {
                     e.status = 400
                 })
 
-            next()
+            await next()
         } else {
             await next()
         }
