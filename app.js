@@ -10,6 +10,7 @@ const config = require('./server/config/server');
 const xmlParse = require('./server/function/xmlParse');
 const setWeChat = require('./server/function/wechatLogin');
 const schedule = require('./server/function/schedule');
+const xml = require('./server/function/xmlTool')
 const app = new Koa();
 
 require('./server/db/db');
@@ -31,7 +32,32 @@ if (config.environment === 'test' || config.environment === 'development') {
     // tokenTest(app);
     setWeChat(app);
 }
-app.use(xmlParse);
+app.use( async (ctx, next) => {
+    if (ctx.method == 'POST' && ctx.is('text/xml')) {
+        let promise = new Promise(function (resolve, reject) {
+            let buf = ''
+            ctx.req.setEncoding('utf8')
+            ctx.req.on('data', (chunk) => {
+                buf += chunk
+            })
+            ctx.req.on('end', () => {
+                xml.xmlToJson(buf)
+                    .then(resolve)
+                    .catch(reject)
+            })
+        })
+        await promise.then((result) => {
+                ctx.req.body = result
+            })
+            .catch((e) => {
+                e.status = 400
+            })
+
+        next()
+    } else {
+        await next()
+    }
+});
 app.use(serve(__dirname + "/dist",{ extensions: ['html']}));
 app.use(async (ctx, next) => {
     const start = new Date(); // 响应开始时间

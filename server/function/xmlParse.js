@@ -22,7 +22,7 @@ module.exports = () => {
                     e.status = 400
                 })
 
-            await next()
+            next()
         } else {
             await next()
         }
