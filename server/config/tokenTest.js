@@ -1,10 +1,11 @@
 'use strict';
 const sha1 = require("sha1");
+const wechatConfig = require("./wechat");
 var config = {
     wechat:{
-        appID:"wxf58455f0c5a38d1d",
-        appSecret:"914d770e7224e980b94ae6727e9c2810",
-        token:"haohao"
+        appID: wechatConfig.appid,
+        appSecret: wechatConfig.secret,
+        token: wechatConfig.token
     }
 }
 module.exports = (app) => {
