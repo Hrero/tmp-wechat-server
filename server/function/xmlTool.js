@@ -7,7 +7,6 @@ exports.xmlToJson = (str) => {
             if (err) {
                 reject(err)
             } else {
-                console.log(result, '===!===')
                 resolve(result)
             }
         })

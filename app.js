@@ -48,7 +48,7 @@ app.use( async (ctx, next) => {
         })
         await promise.then((result) => {
             console.log(result, '======')
-                ctx.req.body = result
+                ctx.body = result
             })
             .catch((e) => {
                 e.status = 400
