@@ -7,6 +7,7 @@ const ApiErrorNames = require('../error/ApiErrorNames');
 const sha1 = require("sha1");
 const fs = require("fs");
 const wxConfig = require('../config/wechat.js')
+const wxMsg = require('../function/wxmsg/xmlwx')
 const serverUrl = config.apiProxy.javaServer;
 const setOptions = (ctx, method, handleParams) => { // 设置和获取header
     return {
@@ -208,6 +209,38 @@ module.exports = {
                 nonceStr, // 必填，生成签名的随机串
                 signature // 必填，签名
             }
+        }
+    },
+    postHandle: async (ctx, next) => {
+        let msg,
+            MsgType,
+            result
+    
+        msg = ctx.req.body ? ctx.req.body.xml : ''
+    
+        if (!msg) {
+            ctx.body = 'error request.'
+            return;
+        }
+        
+        MsgType = msg.MsgType[0]
+    
+        switch (MsgType) {
+            case 'text':
+                result = wxMsg.message.text(msg, msg.Content)
+                break;
+            default: 
+                result = 'success'
+        }
+        ctx.res.setHeader('Content-Type', 'application/xml')
+        ctx.res.end(result)
+    },
+    getHandle: async (ctx, next) => {
+        const result = wxMsg.auth(ctx)
+        if (result) {
+            ctx.body = ctx.query.echostr
+        } else {
+            ctx.body = { code: -1, msg: "You aren't wechat server !"}
         }
     }
 }

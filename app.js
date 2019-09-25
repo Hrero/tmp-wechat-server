@@ -7,10 +7,10 @@ const fetch = require('./server/proxy/fetch');
 const config = require('./server/config/server');
 // const tokenTest = require('./server/config/tokenTest');
 // const socket = require('./server/function/socket');
-const xmlParse = require('./server/function/xmlParse');
+const xmlParse = require('./server/function/wxmsg/xmlParse');
 const setWeChat = require('./server/function/wechatLogin');
 const schedule = require('./server/function/schedule');
-const xml = require('./server/function/xmlTool')
+const xml = require('./server/function/wxmsg/xmlTool')
 const app = new Koa();
 
 require('./server/db/db');
@@ -32,33 +32,7 @@ if (config.environment === 'test' || config.environment === 'development') {
     // tokenTest(app);
     // setWeChat(app);
 }
-app.use( async (ctx, next) => {
-    if (ctx.method == 'POST' && ctx.is('text/xml')) {
-        let promise = new Promise(function (resolve, reject) {
-            let buf = ''
-            ctx.req.setEncoding('utf8')
-            ctx.req.on('data', (chunk) => {
-                buf += chunk
-            })
-            ctx.req.on('end', () => {
-                xml.xmlToJson(buf)
-                    .then(resolve)
-                    .catch(reject)
-            })
-        })
-        await promise.then((result) => {
-            console.log(result, '======')
-                ctx.body = result
-            })
-            .catch((e) => {
-                e.status = 400
-            })
-
-        next()
-    } else {
-        await next()
-    }
-});
+app.use(xmlParse());
 app.use(serve(__dirname + "/dist",{ extensions: ['html']}));
 app.use(async (ctx, next) => {
     const start = new Date(); // 响应开始时间
