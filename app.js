@@ -33,12 +33,12 @@ if (config.environment === 'test' || config.environment === 'development') {
     // setWeChat(app);
 }
 app.use( async (ctx, next) => {
-    console.log(ctx.is('text/xml'), '======')
     if (ctx.method == 'POST' && ctx.is('text/xml')) {
         let promise = new Promise(function (resolve, reject) {
             let buf = ''
             ctx.req.setEncoding('utf8')
             ctx.req.on('data', (chunk) => {
+                console.log(chunk, '======')
                 buf += chunk
             })
             ctx.req.on('end', () => {
