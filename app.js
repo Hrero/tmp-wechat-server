@@ -38,7 +38,6 @@ app.use( async (ctx, next) => {
             let buf = ''
             ctx.req.setEncoding('utf8')
             ctx.req.on('data', (chunk) => {
-                console.log(chunk, '======')
                 buf += chunk
             })
             ctx.req.on('end', () => {
@@ -48,6 +47,7 @@ app.use( async (ctx, next) => {
             })
         })
         await promise.then((result) => {
+            console.log(result, '======')
                 ctx.req.body = result
             })
             .catch((e) => {
